@@ -1,0 +1,19 @@
+# Render Blueprint: one Node web service serving the API and the built client.
+# Create it from the Render dashboard (New > Blueprint) or copy these settings into a manual Web Service.
+services:
+  - type: web
+    name: dolil
+    runtime: node
+    plan: free
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "1"
+      - key: GOOGLE_MODEL
+        value: gemma-4-31b-it
+      - key: GOOGLE_API_KEY
+        sync: false   # set this in the Render dashboard; never commit it
